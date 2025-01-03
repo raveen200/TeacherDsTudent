@@ -22,5 +22,14 @@ namespace TeacherDsTudent.Controllers
                                 .ToListAsync();
             return Ok(Data);
         }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult> GetTeacher(int id)
+        {
+            var data = await _db.Teachers.Include(t => t.Students)
+                                .FirstOrDefaultAsync(t => t.TeacherID == id);
+            return Ok(data);
+        }
+
     }
 }
